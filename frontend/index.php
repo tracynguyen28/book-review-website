@@ -1,13 +1,18 @@
 <?php
 // index.php - Homepage for Book Review Website
 // This tests PHP is working. Add DB later.
-require 'config/db.php';
+require '../config/db.php';
 
 $pageTitle = "Welcome to Book Review Website";
 $message = "Back-end setup by Tracy Nguyen. Front-end by Yvonne Gitonga.";
-$stmt = $pdo->query("SELECT * FROM books ORDER BY RAND() LIMIT 5");
-$books = $stmt->fetchAll();
+try {
+    $stmt = $pdo->query("SELECT * FROM books ORDER BY RAND() LIMIT 5");
+    $books = $stmt->fetchAll();
+} catch (PDOException $e) {
+    die("Error fetching books: " . $e->getMessage());
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
